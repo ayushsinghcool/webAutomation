@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="TestSuite" parallel="methods" thread-count="2">
+    <listeners>
+        <listener class-name="listeners.CustomTestNGListener"/>
+    </listeners>
+    <test name="Test1">
+        <parameter name="sampleParamName" value="Groccery"/>
+        <classes>
+            <class name="SearchProductTest" />
+        </classes>
+    </test>
+</suite>

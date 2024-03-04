@@ -12,7 +12,9 @@ target/
 *.iml
 *.ipr
 .idea
-
+CTReports/
+reports/
+test-report.html
 
 ### Eclipse ###
 .apt_generated

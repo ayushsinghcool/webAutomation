@@ -17,4 +17,9 @@ public class SearchProductPageObject extends WebPageInit {
         setText(search,item,"Search Text Box");
         return this;
     }
+
+    public SearchProductPageObject setClear(){
+        search.clear();
+        return this;
+    }
 }
