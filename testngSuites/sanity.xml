@@ -3,7 +3,7 @@
     <listeners>
         <listener class-name="listeners.CustomTestNGListener"/>
     </listeners>
-    <test name="Test1">
+    <test name="Test">
         <parameter name="sampleParamName" value="Groccery"/>
         <classes>
             <class name="SearchProductTest" />

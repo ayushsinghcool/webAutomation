@@ -46,6 +46,6 @@ public class TestInit {
         extent.flush();
         new CTReport();
         CTReport.generateCTReport(ExtentManager.getExtentReportFileName());
-        DriverFactory.closeDriver();
+       // DriverFactory.closeDriver();
     }
 }

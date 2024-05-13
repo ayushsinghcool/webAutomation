@@ -1,10 +1,12 @@
 package common;
 
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import intializers.WebPageInit;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import reportManagement.ExtentManager;
 import utils.CommonUtils;
 
@@ -47,5 +49,23 @@ public class Assertion extends WebPageInit {
             testNode.fail("Assertion FAIL");
         }
         captureScreenWeb(testNode,"");
+    }
+
+    public static void assertAPI(String actual,String expected){
+        testNode = ExtentManager.getTest();
+        try {
+            createAssertionLabel();
+            createCodeBlock(actual, expected);
+            if (actual.equalsIgnoreCase(expected)) {
+                testNode.pass(m);
+            } else {
+                testNode.fail(m);
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            testNode.fail("Test Case Failed");
+            testNode.log(Status.INFO, "StackTrace Result: " + ExceptionUtils.getStackTrace(e));
+        }
     }
 }
