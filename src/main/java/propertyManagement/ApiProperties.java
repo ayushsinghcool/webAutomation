@@ -7,15 +7,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class WebProperties {
+public class ApiProperties {
 
-    private WebProperties() {
+    private ApiProperties() {
 
     }
 
-    private static final String PROPERTIES_FILE = "config/WebProperties.properties";
+    private static final String PROPERTIES_FILE = "config/ApiProperties.properties";
     private static Properties properties = new Properties();
-    private static Logger logger = LoggerFactory.getLogger(WebProperties.class);
+    private static Logger logger = LoggerFactory.getLogger(ApiProperties.class);
 
     static {
 

@@ -4,12 +4,11 @@ import com.aventstack.extentreports.ExtentTest;
 import globalConstants.RequestType;
 import globalConstant.RestAssuredConstants;
 import io.restassured.RestAssured;
-import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
-import propertyManagement.ExecutionProperties;
+import propertyManagement.ApiProperties;
 import reportManagement.ExtentManager;
 
 
@@ -25,53 +24,51 @@ public class RestAssuredHelper   {
 	public Response SpecifyAndSendRequest(RequestType requestType, String url, String postModelAsString, boolean auth) {
 		ExtentTest node = ExtentManager.getTest();
 		resBuilder = new ResponseSpecBuilder();
-		resBuilder.expectResponseTime(Matchers.lessThan(MAX_TIMEOUT));
-		PreemptiveBasicAuthScheme authScheme = new PreemptiveBasicAuthScheme();
-		/*authScheme.setUserName("Admin");
-		authScheme.setPassword("secret");
-		RestAssured.authentication = authScheme;*/
+		//resBuilder.expectResponseTime(Matchers.lessThan(MAX_TIMEOUT));
 		RestAssured.responseSpecification = resBuilder.build();
 		request = RestAssured.given();
 
 		try {
 			if (auth) {
+
 				request.headers(RestAssuredConstants.ContentType, RestAssuredConstants.ApplicationJson, "Authorization", RestAssuredConstants.auth);
-				System.out.println(RestAssuredConstants.auth);
 				node.info("Headers : " + RestAssuredConstants.ContentType + " " + RestAssuredConstants.ApplicationJson + " " + "Authorization : " + RestAssuredConstants.auth);
+
 			} else {
-				//request.auth().preemptive().basic(ExecutionProperties.getProperty("username"),ExecutionProperties.getProperty("password"));
-				request.headers(RestAssuredConstants.ContentType, RestAssuredConstants.ApplicationJson,"skipSecurityHeaderValidation","true");
+
+				request.headers(RestAssuredConstants.ContentType, RestAssuredConstants.ApplicationJson);
 				node.info("Headers : " + RestAssuredConstants.ContentType + " " + RestAssuredConstants.ApplicationJson);
+
 			}
-			//request.headers(RestAssuredConstants.ContentType, RestAssuredConstants.ApplicationJson, "Authorization", "Bearer mnmtrlv4e9vj5b115fcftrohpvcnbyfm");
 			if (postModelAsString != null) {
-				request.body(postModelAsString);
+				node.info("Request : "+ postModelAsString);
+
 			}
 			switch (requestType) {
 				case Delete:
 					response = request.delete(url);
-					//node.info("Request Type : DELETE");
-					//node.info("URL : "+"https://psmw.gpay.digital/dev_mobiq_api"+url);
+					node.info("Request Type : DELETE");
+					node.info("URL : " + ApiProperties.getProperty("base.uri") + url);
 					break;
 				case Get:
 					node.info("Request Type : GET");
-					node.info("URL : " + "https://dwdev1.qnb.com/extensibility/v1" + url);
+					node.info("URL : " + ApiProperties.getProperty("base.uri") + url);
 					response = request.get(url);
 					break;
 				case Patch:
 					response = request.patch(url);
-					//	node.info("Request Type : PATCH");
-					//	node.info("URL : "+"https://psmw.gpay.digital/dev_mobiq_api"+url);
+						node.info("Request Type : PATCH");
+						node.info("URL : " + ApiProperties.getProperty("base.uri") + url);
 					break;
 				case Post:
 					response = request.post(url);
-					//	node.info("Request Type : POST");
-					//	node.info("URL : "+"https://psmw.gpay.digital/dev_mobiq_api"+url);
+						node.info("Request Type : POST");
+						node.info("URL : " + ApiProperties.getProperty("base.uri") + url);
 					break;
 				case Put:
 					response = request.put(url);
-					//	node.info("Request Type : PUT");
-					//	node.info("URL : "+"https://psmw.gpay.digital/dev_mobiq_api"+url);
+						node.info("Request Type : PUT");
+						node.info("URL : " + ApiProperties.getProperty("base.uri") + url);
 					break;
 				default:
 					throw new UnsupportedOperationException("Request type is not supported.");

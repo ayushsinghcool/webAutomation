@@ -3,7 +3,6 @@ package globalConstant;
 
 
 import propertyManagement.CTReportProperties;
-import propertyManagement.WebProperties;
 import utils.DateUtil;
 
 import java.io.File;

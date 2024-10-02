@@ -1,23 +1,30 @@
 package reportManagement;
 
 import globalConstant.FilePaths;
+import lombok.Getter;
+import propertyManagement.ApiProperties;
 import propertyManagement.CTReportProperties;
-import propertyManagement.WebProperties;
 import utils.ExcelUtil;
 
 import java.io.File;
 import java.io.IOException;
 
 public class CTReport {
-    private String buildID;
-    private String leadName;
-    private String testFrameworkIP;
-    private String testFrameworkName;
-    private String testFrameworkGitPath;
-    private String productInterface;
-    private String inf01;
-    private String inf02;
-    private String testType;
+    @Getter
+    private final String buildID;
+    @Getter
+    private final String leadName;
+    @Getter
+    private final String testFrameworkIP;
+    @Getter
+    private final String testFrameworkName;
+    private final String testFrameworkGitPath;
+    @Getter
+    private final String productInterface;
+    private final String inf01;
+    private final String inf02;
+    @Getter
+    private final String testType;
     public CTReport(){
         this.leadName = CTReportProperties.getInstance().getProperty("LeadName");
         this.productInterface = CTReportProperties.getInstance().getProperty("ProjectName");
@@ -25,8 +32,8 @@ public class CTReport {
         this.testFrameworkIP = CTReportProperties.getInstance().getProperty("TestFrameworkIP");
         this.testFrameworkGitPath = CTReportProperties.getInstance().getProperty("TestFrameworkGitPath");
         this.buildID = CTReportProperties.getInstance().getProperty("BUILDID");
-        this.inf01 = WebProperties.getProperty("project.name");
-        this.inf02 = WebProperties.getProperty("language.code");
+        this.inf01 = ApiProperties.getProperty("project.name");
+        this.inf02 = ApiProperties.getProperty("language.code");
         this.testType = CTReportProperties.getInstance().getProperty("TestType");
     }
     public static void generateCTReport(String htmlReportPath) {
@@ -52,31 +59,16 @@ public class CTReport {
         CTReport ctReport = new CTReport();
         ctReport.generateCTReport(path);
     }
-    public String getLeadName() {
-        return this.leadName;
-    }
-    public String getTestFrameworkName() {
-        return this.testFrameworkName;
-    }
-    public String getProductInterface() {
-        return this.productInterface;
-    }
-    public String getTestFrameworkIP() {
-        return this.testFrameworkIP;
-    }
+
     public String getCountry() {
         return this.inf01;
     }
     public String getLanguage() {
         return this.inf02;
     }
-    public String getBuildID() {
-        return this.buildID;
-    }
     public String getTestFrameworkSVNPath() {
         return this.testFrameworkGitPath;
     }
-    public String getTestType(){return this.testType;}
 
 
 }

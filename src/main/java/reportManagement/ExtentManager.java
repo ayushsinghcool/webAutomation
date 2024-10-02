@@ -6,6 +6,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import globalConstant.FilePaths;
+import lombok.Getter;
 import propertyManagement.ExecutionProperties;
 import utils.DateUtil;
 
@@ -18,6 +19,7 @@ public class ExtentManager {
     }
 
     private static ExtentReports extent;
+    @Getter
     private static String extentReportFileName = null;
     protected static Map<Integer,ExtentTest> extentMap = new HashMap<>();
 
@@ -28,12 +30,9 @@ public class ExtentManager {
         return createInstance();
     }
 
-    public static String getExtentReportFileName(){
-        return extentReportFileName;
-    }
     private static ExtentReports createInstance(){
         ExtentSparkReporter htmlReporter;
-        String fileName = "Web"+ DateUtil.getCurrentDateAndTimeForReport()+".html";
+        String fileName = "API.html";
         extentReportFileName = FilePaths.EXTENT_REPORT_PATH + fileName;
         htmlReporter = new ExtentSparkReporter(extentReportFileName);
         htmlReporter.config().setTheme(Theme.STANDARD);
@@ -71,10 +70,9 @@ public class ExtentManager {
         return t1;
     }
 
-    public static synchronized ExtentTest startTestFromProperty(ExtentTest test,String keyValue){
+    public static synchronized void startTestFromProperty(ExtentTest test, String keyValue){
         ExtentTest t1 = test.createNode(keyValue);
         extentMap.put((int) Thread.currentThread().getId(),t1);
-        return t1;
     }
 
     public static synchronized ExtentTest startTestFromProperty(String keyValue){

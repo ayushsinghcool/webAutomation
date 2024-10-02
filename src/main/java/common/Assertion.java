@@ -5,14 +5,10 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
-import intializers.WebPageInit;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import reportManagement.ExtentManager;
-import utils.CommonUtils;
 
-import static utils.CommonUtils.captureScreenWeb;
-
-public class Assertion extends WebPageInit {
+public class Assertion {
     private static ExtentTest testNode;
     private static Markup m;
 
@@ -36,7 +32,6 @@ public class Assertion extends WebPageInit {
         }else {
             testNode.fail(m);
         }
-       captureScreenWeb(testNode,"Capturing Screen");
     }
 
     public static void verifyContains(String actual,String expected){
@@ -48,7 +43,6 @@ public class Assertion extends WebPageInit {
         }else {
             testNode.fail("Assertion FAIL");
         }
-        captureScreenWeb(testNode,"");
     }
 
     public static void assertAPI(String actual,String expected){

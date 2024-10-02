@@ -13,16 +13,16 @@ public class MessageReader {
 
     }
 
-    private static Logger logger = LoggerFactory.getLogger(MessageReader.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageReader.class);
     private static ResourceBundle resourceBundle;
-    private static String languageCode;
-    private static String countryCode;
-    private static Locale locale;
+    private static final String languageCode;
+    private static final String countryCode;
+    private static final Locale locale;
 
     static {
         logger.info("Message Reader Loaded...");
-        languageCode = WebProperties.getProperty("language.code",Locale.ENGLISH.getLanguage());
-        countryCode = WebProperties.getProperty("country.code",Locale.ENGLISH.getCountry());
+        languageCode = ApiProperties.getProperty("language.code",Locale.ENGLISH.getLanguage());
+        countryCode = ApiProperties.getProperty("country.code",Locale.ENGLISH.getCountry());
         locale = new Locale(languageCode,countryCode);
         loadResourceBundle();
     }
